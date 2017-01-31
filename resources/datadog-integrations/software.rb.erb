@@ -47,7 +47,7 @@ build do
   # install requirements
   install_cmd = "install --target=#{integration_agent_folder}/lib "
   # Only apply the constraints file if one exists
-  if File.exists? #{install_dir}/agent/requirements.txt
+  if File.exists? "#{install_dir}/agent/requirements.txt"
     install_cmd += " -c #{install_dir}/agent/requirements.txt "
   end
   install_cmd += " -r #{integration_source_folder}/requirements.txt"
