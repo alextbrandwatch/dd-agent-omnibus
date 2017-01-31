@@ -56,12 +56,11 @@ elsif windows?
   conf_directory = "../../extra_package_files/EXAMPLECONFSLOCATION"
 end
 
-if File.exists? "#{project_dir}/<%= name %>/conf.yaml.example"
+# Only one of these exists and we only want to include that one
+if File.exists? '#{conf_directory}/<%= name %>.yaml.example'
   extra_package_file '#{conf_directory}/<%= name %>.yaml.example'
 end
-
-# If it is a default, we need to move it as a default
-if File.exists? "#{project_dir}/<%= name %>/conf.yaml.default"
+if File.exists? '#{conf_directory}/<%= name %>.yaml.default'
   extra_package_file '#{conf_directory}/<%= name %>.yaml.default'
 end
 
