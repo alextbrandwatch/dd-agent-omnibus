@@ -48,6 +48,21 @@ runtime_dependency 'datadog-agent'
 
 extends_packages('datadog-agent', 'datadog')
 
-extra_package_file '/etc/dd-agent/conf.d/examples/<%= name %>.yaml.example'
+if linux?
+  conf_directory = "/etc/dd-agent/conf.d"
+elsif osx?
+  conf_directory = "#{install_dir}/etc"
+elsif windows?
+  conf_directory = "../../extra_package_files/EXAMPLECONFSLOCATION"
+end
+
+if File.exists? "#{project_dir}/<%= name %>/conf.yaml.example"
+  extra_package_file '#{conf_directory}/<%= name %>.yaml.example'
+end
+
+# If it is a default, we need to move it as a default
+if File.exists? "#{project_dir}/<%= name %>/conf.yaml.default"
+  extra_package_file '#{conf_directory}/<%= name %>.yaml.default'
+end
 
 exclude '\.git*'
